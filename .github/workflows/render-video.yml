@@ -1,0 +1,54 @@
+name: CI/CD Automated Kinetic Video Generator
+
+on:
+  push:
+    paths:
+      - 'scripts/video-inputs/**'
+      - '.github/workflows/render-video.yml'
+    branches: ["main", "master"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  render-videos:
+    name: Headless Playwright Video Render
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*'
+          cache: 'npm'
+
+      - name: Install Root Dependencies
+        run: npm ci
+
+      - name: Install Web App Dependencies
+        run: cd apps/web-app && npm ci
+
+      - name: Build Web App
+        run: cd apps/web-app && npm run build
+
+      - name: Install Playwright & Chromium
+        run: |
+          npm install playwright
+          npx playwright install --with-deps chromium
+
+      - name: Start Preview Web Server & Render Videos
+        run: |
+          cd apps/web-app && npm run preview -- --port 4173 &
+          sleep 5
+          RENDER_BASE_URL="http://localhost:4173/kinetic" node scripts/render-kinetic.js
+
+      - name: Upload Rendered Videos as GitHub Actions Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: kinetic-videos
+          path: output_videos/
+          if-no-files-found: error

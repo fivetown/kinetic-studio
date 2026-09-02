@@ -1,0 +1,12 @@
+{
+  "id": "korean-lesson-01",
+  "name": "한국어 학습 목표 키네틱 숏폼",
+  "title": "학습 목표",
+  "phrase": "‘-아서/어서’가 나타내는 시간 순서의 의미를 알고,\n자신의 일과를 순서대로 표현할 수 있다.",
+  "outro": "한국어 문법 학습 04단계",
+  "fontFamily": "pretendard",
+  "cursorColor": "#FF5A1F",
+  "breakdownMode": "cumulative",
+  "activeEffect": "typing",
+  "holdDuration": 1.5
+}

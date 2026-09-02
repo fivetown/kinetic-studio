@@ -5,6 +5,8 @@
 @import 'highlight.js/styles/github-dark.css' (prefers-color-scheme: dark);
 
 :root {
+  --font-pretendard: 'Pretendard Variable', Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+  --font-noto-sans-kr: 'Noto Sans KR', 'Pretendard', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
   --font-sans: 'Outfit', 'Avenir Next', 'Segoe UI', 'Helvetica Neue', sans-serif;
   --font-mono: 'JetBrains Mono', 'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace;
 
