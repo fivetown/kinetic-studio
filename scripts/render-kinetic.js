@@ -45,57 +45,61 @@ async function main() {
     const scriptData = JSON.parse(fs.readFileSync(filePath, 'utf8'));
     console.log(`Processing script: ${scriptData.name || scriptData.id}...`);
 
+    // Dynamic resolution based on aspect ratio
+    let width = 1920;
+    let height = 1080;
+    if (scriptData.aspect === '9-16') {
+      width = 1080;
+      height = 1920;
+    } else if (scriptData.aspect === '1-1') {
+      width = 1080;
+      height = 1080;
+    }
+
+    const context = await browser.newContext({
+      viewport: { width, height },
+      recordVideo: { dir: outputDir, size: { width, height } }
+    });
+
     const page = await context.newPage();
+    const renderUrl = `${baseUrl}?mode=render`;
+
     try {
-      await page.goto(baseUrl, { waitUntil: 'networkidle', timeout: 30000 });
+      await page.goto(renderUrl, { waitUntil: 'networkidle', timeout: 30000 });
     } catch (err) {
-      console.log(`Navigating to ${baseUrl} with domcontentloaded...`);
-      await page.goto(baseUrl, { waitUntil: 'domcontentloaded' });
+      console.log(`Navigating to ${renderUrl} with domcontentloaded...`);
+      await page.goto(renderUrl, { waitUntil: 'domcontentloaded' });
     }
 
-    // Switch to Text/Script tab if needed
-    const scriptTabBtn = page.locator('button:has-text("Script")');
-    if (await scriptTabBtn.isVisible()) {
-      await scriptTabBtn.click();
-    }
-
-    // Fill in custom script inputs
-    if (scriptData.title) {
-      await page.fill('input[value*="학습 목표"]', scriptData.title).catch(() => {});
-    }
-
-    if (scriptData.phrase) {
-      const textarea = page.locator('textarea');
-      if (await textarea.isVisible()) {
-        await textarea.fill(scriptData.phrase);
+    // Safely inject script data and background options into Kinetic Studio
+    await page.evaluate((data) => {
+      if (typeof window.__KINETIC_SET_SCRIPT__ === 'function') {
+        window.__KINETIC_SET_SCRIPT__(data);
       }
-    }
+    }, scriptData);
 
-    if (scriptData.outro) {
-      const outroInput = page.locator('input').nth(2);
-      if (await outroInput.isVisible()) {
-        await outroInput.fill(scriptData.outro);
-      }
-    }
+    // Wait a brief moment for layout/fonts to settle
+    await page.waitForTimeout(600);
 
-    // Apply custom script
-    const applyBtn = page.locator('button:has-text("Apply Custom Script")');
-    if (await applyBtn.isVisible()) {
-      await applyBtn.click();
-    }
+    // Dynamically retrieve exact animation playback duration (Intro + Words + 1.5s Hold + Outro)
+    const exactDuration = await page.evaluate(() => {
+      return typeof window.__KINETIC_GET_DURATION__ === 'function'
+        ? window.__KINETIC_GET_DURATION__()
+        : 8.0;
+    });
 
-    // Wait for playback duration (Intro + Words + 1.5s Hold + Outro)
-    console.log('Recording video animation playback...');
-    await page.waitForTimeout(7000);
+    console.log(`Recording animation playback for exact duration: ${exactDuration.toFixed(2)}s...`);
+    await page.waitForTimeout(Math.ceil((exactDuration + 0.6) * 1000));
 
     const video = page.video();
     await page.close();
+    await context.close();
 
     if (video) {
       const videoPath = await video.path();
       const targetFileName = path.join(outputDir, `${scriptData.id || 'output'}.webm`);
       fs.renameSync(videoPath, targetFileName);
-      console.log(`✅ Kinetic Video Rendered: ${targetFileName}`);
+      console.log(`✅ Pure Kinetic Video Rendered: ${targetFileName}`);
     }
   }
 

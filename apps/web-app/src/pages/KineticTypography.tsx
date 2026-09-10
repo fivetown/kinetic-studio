@@ -229,6 +229,166 @@ const KINETIC_EFFECTS: EffectConfig[] = [
   }
 ];
 
+// ==========================================
+// 2.5 Canvas Background Presets (Transparent, Off-White, Core, Broadcast)
+// ==========================================
+export interface BackgroundPreset {
+  id: string;
+  name: string;
+  category: 'transparent' | 'offwhite' | 'core' | 'broadcast';
+  categoryLabel: string;
+  description: string;
+  bgClass?: string;
+  customStyle?: React.CSSProperties;
+  previewColor: string;
+  borderPreview?: string;
+  isTransparent?: boolean;
+  textTone: 'dark' | 'light' | 'chroma';
+  accentRecommendation?: string;
+}
+
+export const BACKGROUND_PRESETS: BackgroundPreset[] = [
+  // 1. 투명 배경
+  {
+    id: 'bg-transparent',
+    name: '투명 배경 (Alpha)',
+    category: 'transparent',
+    categoryLabel: '오버레이 합성',
+    description: '알파 채널 투명 배경. 프리미어, 파이널컷, OBS 영상 위에 자막/타이포로 바로 합성.',
+    isTransparent: true,
+    previewColor: 'transparent',
+    textTone: 'dark',
+    accentRecommendation: '#FF5A1F'
+  },
+  // 2. 오프화이트 & 라이트 (사용자 요구사항 명시 반영)
+  {
+    id: 'bg-offwhite-clean',
+    name: '스튜디오 클린 오프화이트',
+    category: 'offwhite',
+    categoryLabel: '오프화이트',
+    description: '눈부심이 없는 따뜻한 미색 오프화이트(#FAF9F6). 교육 및 비즈니스 영상 최적.',
+    customStyle: { backgroundColor: '#FAF9F6' },
+    previewColor: '#FAF9F6',
+    borderPreview: '#E5E4DE',
+    textTone: 'dark',
+    accentRecommendation: '#FF5A1F'
+  },
+  {
+    id: 'bg-offwhite-swiss',
+    name: '스위스 바우하우스 오프화이트',
+    category: 'offwhite',
+    categoryLabel: '오프화이트',
+    description: '스위스 모던 그래픽 표준 오프화이트(#F4F3EF). 높은 시인성과 고급스러운 종이 질감.',
+    customStyle: { backgroundColor: '#F4F3EF' },
+    previewColor: '#F4F3EF',
+    borderPreview: '#DDDCD7',
+    textTone: 'dark',
+    accentRecommendation: '#E63946'
+  },
+  {
+    id: 'bg-offwhite-ivory',
+    name: '웜 아이보리 페이퍼',
+    category: 'offwhite',
+    categoryLabel: '오프화이트',
+    description: '따뜻한 한지/아이보리 그라데이션. 인문학 및 감성 메시지에 최적.',
+    bgClass: 'bg-gradient-to-br from-[#faf7f2] via-[#f3ede2] to-[#e8dfd1]',
+    previewColor: '#F3EDE2',
+    borderPreview: '#D6C7B2',
+    textTone: 'dark',
+    accentRecommendation: '#0C4DA2'
+  },
+  // 3. 다크 & 테마 코어
+  {
+    id: 'bg-modern-slate',
+    name: '모던 슬레이트 다크',
+    category: 'core',
+    categoryLabel: '테마 코어',
+    description: '세련된 슬레이트 딥 다크 그라데이션. Pretendard 폰트와 최고 궁합.',
+    bgClass: 'bg-gradient-to-b from-slate-900 via-slate-950 to-black',
+    previewColor: '#0F172A',
+    textTone: 'light',
+    accentRecommendation: '#38BDF8'
+  },
+  {
+    id: 'bg-apple-glass',
+    name: '애플 SF 글래스',
+    category: 'core',
+    categoryLabel: '테마 코어',
+    description: '애플 스타일 글래스모피즘 블러 효과와 차분한 그레이스케일.',
+    bgClass: 'backdrop-blur-xl bg-slate-900/80',
+    previewColor: '#1E293B',
+    textTone: 'light',
+    accentRecommendation: '#0071E3'
+  },
+  {
+    id: 'bg-cyberpunk-neon',
+    name: '사이버펑크 OLED 블랙',
+    category: 'core',
+    categoryLabel: '테마 코어',
+    description: '네온 발광 텍스트를 극대화하는 방사형 심층 블랙.',
+    bgClass: 'bg-radial from-[#0d1322] via-[#050810] to-[#010206]',
+    previewColor: '#050810',
+    textTone: 'light',
+    accentRecommendation: '#06B6D4'
+  },
+  // 4. 방송/영상 제작 전용
+  {
+    id: 'bg-chroma-green',
+    name: '크로마키 그린 (Green Screen)',
+    category: 'broadcast',
+    categoryLabel: '방송 제작용',
+    description: '표준 방송 크로마키(#00FF00). 편집기 Ultra Key 추출에 최적.',
+    customStyle: { backgroundColor: '#00FF00' },
+    previewColor: '#00FF00',
+    textTone: 'chroma',
+    accentRecommendation: '#000000'
+  },
+  {
+    id: 'bg-chroma-blue',
+    name: '크로마키 블루 (Blue Screen)',
+    category: 'broadcast',
+    categoryLabel: '방송 제작용',
+    description: '초록 그래픽/의상 촬영 시 사용하는 방송 표준 블루스크린(#0047AB).',
+    customStyle: { backgroundColor: '#0047AB' },
+    previewColor: '#0047AB',
+    textTone: 'light',
+    accentRecommendation: '#FFFFFF'
+  },
+  {
+    id: 'bg-studio-navy',
+    name: '방송 뉴스룸 스튜디오 네이비',
+    category: 'broadcast',
+    categoryLabel: '방송 제작용',
+    description: '신뢰감을 주는 뉴스룸 및 다큐멘터리 인터뷰 딥 네이비 비네트.',
+    bgClass: 'bg-gradient-to-b from-[#0a192f] via-[#0f2744] to-[#050c1a]',
+    previewColor: '#0A192F',
+    textTone: 'light',
+    accentRecommendation: '#F59E0B'
+  },
+  {
+    id: 'bg-amoled-black',
+    name: '쇼츠/릴스 AMOLED 슈퍼블랙',
+    category: 'broadcast',
+    categoryLabel: '방송 제작용',
+    description: '완전 무광 블랙(#000000). 숏폼 모바일 디스플레이 가독성 1위.',
+    customStyle: { backgroundColor: '#000000' },
+    previewColor: '#000000',
+    textTone: 'light',
+    accentRecommendation: '#FACC15'
+  },
+  {
+    id: 'bg-lower-third-scrim',
+    name: '하단 1/3 로어써드 페이드',
+    category: 'broadcast',
+    categoryLabel: '방송 제작용',
+    description: '상단 투명, 하단 50% 딥 그라데이션. 실제 인물 영상 위 하단 자막용.',
+    bgClass: 'bg-gradient-to-t from-black/90 via-black/40 to-transparent',
+    previewColor: '#1E293B',
+    textTone: 'light',
+    accentRecommendation: '#38BDF8'
+  }
+];
+
 function playAudioClick(type: 'type' | 'transition' = 'type') {
   try {
     const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
@@ -285,6 +445,25 @@ export default function KineticTypography(): React.ReactElement {
   // Requirement 2: Cursor Accent Color ('#FF5A1F' Orange, '#0c4da2' Blue, '#10b981' Emerald, '#a855f7' Purple)
   const [cursorColor, setCursorColor] = useState<string>('#FF5A1F');
 
+  // Background Selection State (Transparent, Off-White, Core Theme, Broadcast)
+  const [selectedBgId, setSelectedBgId] = useState<string>(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const bgParam = params.get('bg');
+      if (bgParam && BACKGROUND_PRESETS.some(b => b.id === bgParam)) return bgParam;
+    }
+    return 'bg-offwhite-clean'; // Default to comfortable Studio Clean Off-White
+  });
+
+  // Dedicated Render Mode check (?mode=render or ?canvasOnly=true)
+  const [isRenderMode] = useState<boolean>(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('mode') === 'render' || params.get('canvasOnly') === 'true';
+    }
+    return false;
+  });
+
   // Requirement 3: Style Guidelines & Fonts (Added Pretendard & Noto Sans KR)
   const [activeStyleId, setActiveStyleId] = useState<string>('pretendard-clean');
   const [fontFamily, setFontFamily] = useState<'outfit' | 'mono' | 'sans' | 'serif' | 'pretendard' | 'noto-sans-kr'>('pretendard');
@@ -328,6 +507,32 @@ export default function KineticTypography(): React.ReactElement {
   const activeStyle = useMemo(() => {
     return STYLE_GUIDELINES.find(s => s.id === activeStyleId) || STYLE_GUIDELINES[0];
   }, [activeStyleId]);
+
+  // Derived active background preset (Off-White, Transparent, Core, Broadcast)
+  const activeBg = useMemo(() => {
+    return BACKGROUND_PRESETS.find(b => b.id === selectedBgId) || BACKGROUND_PRESETS[1];
+  }, [selectedBgId]);
+
+  // Derived text color class adapting to background textTone
+  const effectiveTextClass = useMemo(() => {
+    if (activeBg.textTone === 'dark') {
+      return 'text-slate-900';
+    } else if (activeBg.textTone === 'chroma') {
+      return 'text-neutral-950 font-black';
+    } else {
+      return 'text-white drop-shadow-md';
+    }
+  }, [activeBg.textTone]);
+
+  const effectiveTitleClass = useMemo(() => {
+    if (activeBg.textTone === 'dark') {
+      return 'text-slate-900 font-extrabold';
+    } else if (activeBg.textTone === 'chroma') {
+      return 'text-neutral-950 font-black';
+    } else {
+      return 'text-white font-extrabold drop-shadow-lg';
+    }
+  }, [activeBg.textTone]);
 
   // Requirement 4 & 5: Parse multi-line phraseText preserving line breaks and Unicode grapheme integrity
   const structuredLines = useMemo(() => {
@@ -491,6 +696,18 @@ export default function KineticTypography(): React.ReactElement {
     if (style.accentColor) {
       setCursorColor(style.accentColor);
     }
+    // Automatically match suitable background for preset
+    if (style.id === 'cyberpunk-neon') {
+      setSelectedBgId('bg-cyberpunk-neon');
+    } else if (style.id === 'apple-style') {
+      setSelectedBgId('bg-apple-glass');
+    } else if (style.id === 'swiss-modern') {
+      setSelectedBgId('bg-offwhite-swiss');
+    } else if (style.id === 'noto-sans-korean' || style.id === 'editorial-ivory') {
+      setSelectedBgId('bg-offwhite-ivory');
+    } else if (style.id === 'pretendard-clean') {
+      setSelectedBgId('bg-offwhite-clean');
+    }
     handleReset();
   };
 
@@ -588,25 +805,200 @@ export default function KineticTypography(): React.ReactElement {
     }
   }, [activeEffect, slideDirection, springStiffness, springDamping]);
 
-  // Video Export Recording Simulator
-  const handleStartRecording = () => {
+  // Actual High-Fidelity Canvas Video Recorder using MediaRecorder API
+  const handleStartRecording = async () => {
     setIsRecording(true);
     setRecordingProgress(0);
-    handleReset();
+    setRecordedVideoUrl(null);
+    setIsPlaying(false);
 
-    const interval = setInterval(() => {
-      setCurrentTime(prev => {
-        const next = prev + 0.1;
-        const progress = Math.min(100, Math.floor((next / totalDuration) * 100));
-        setRecordingProgress(progress);
-        if (next >= totalDuration) {
-          clearInterval(interval);
-          setIsRecording(false);
-          setRecordedVideoUrl('https://assets.mixkit.co/videos/preview/mixkit-abstract-fast-lines-of-light-41549-large.mp4');
+    // Resolution based on Aspect Ratio
+    let width = 1920;
+    let height = 1080;
+    if (aspectRatio === '9-16') {
+      width = 1080;
+      height = 1920;
+    } else if (aspectRatio === '1-1') {
+      width = 1080;
+      height = 1080;
+    }
+
+    const canvas = document.createElement('canvas');
+    canvas.width = width;
+    canvas.height = height;
+    const ctx = canvas.getContext('2d', { alpha: true });
+    if (!ctx) {
+      alert('Canvas 2D context is not available.');
+      setIsRecording(false);
+      return;
+    }
+
+    // Supported MIME types detection
+    let mimeType = 'video/webm;codecs=vp9';
+    if (typeof MediaRecorder !== 'undefined' && !MediaRecorder.isTypeSupported(mimeType)) {
+      mimeType = 'video/webm;codecs=vp8';
+      if (!MediaRecorder.isTypeSupported(mimeType)) {
+        mimeType = 'video/webm';
+      }
+    }
+
+    const stream = canvas.captureStream(30); // 30 FPS
+    const recorder = new MediaRecorder(stream, {
+      mimeType,
+      videoBitsPerSecond: 8000000 // 8 Mbps high quality
+    });
+
+    const recordedChunks: Blob[] = [];
+    recorder.ondataavailable = (e) => {
+      if (e.data.size > 0) {
+        recordedChunks.push(e.data);
+      }
+    };
+
+    recorder.onstop = () => {
+      const blob = new Blob(recordedChunks, { type: mimeType });
+      const url = URL.createObjectURL(blob);
+      setRecordedVideoUrl(url);
+      setIsRecording(false);
+      setRecordingProgress(100);
+      setIsPlaying(true);
+    };
+
+    recorder.start();
+
+    // Render frame by frame
+    const fps = 30;
+    const totalFrames = Math.ceil(totalDuration * fps);
+    let frame = 0;
+
+    const renderLoop = () => {
+      if (frame > totalFrames) {
+        recorder.stop();
+        return;
+      }
+
+      const t = frame / fps;
+      setCurrentTime(t);
+      const progress = Math.min(100, Math.floor((frame / totalFrames) * 100));
+      setRecordingProgress(progress);
+
+      // 1. Draw Background
+      ctx.clearRect(0, 0, width, height);
+      if (activeBg.isTransparent) {
+        // Transparent WebM with VP9 Alpha Channel!
+      } else if (activeBg.id === 'bg-offwhite-clean') {
+        ctx.fillStyle = '#FAF9F6';
+        ctx.fillRect(0, 0, width, height);
+      } else if (activeBg.id === 'bg-offwhite-swiss') {
+        ctx.fillStyle = '#F4F3EF';
+        ctx.fillRect(0, 0, width, height);
+      } else if (activeBg.id === 'bg-offwhite-ivory') {
+        const grad = ctx.createLinearGradient(0, 0, width, height);
+        grad.addColorStop(0, '#FAF7F2');
+        grad.addColorStop(0.5, '#F3EDE2');
+        grad.addColorStop(1, '#E8DFD1');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, width, height);
+      } else if (activeBg.id === 'bg-chroma-green') {
+        ctx.fillStyle = '#00FF00';
+        ctx.fillRect(0, 0, width, height);
+      } else if (activeBg.id === 'bg-chroma-blue') {
+        ctx.fillStyle = '#0047AB';
+        ctx.fillRect(0, 0, width, height);
+      } else if (activeBg.id === 'bg-studio-navy') {
+        const grad = ctx.createLinearGradient(0, 0, 0, height);
+        grad.addColorStop(0, '#0A192F');
+        grad.addColorStop(0.5, '#0F2744');
+        grad.addColorStop(1, '#050C1A');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, width, height);
+      } else if (activeBg.id === 'bg-amoled-black') {
+        ctx.fillStyle = '#000000';
+        ctx.fillRect(0, 0, width, height);
+      } else if (activeBg.id === 'bg-lower-third-scrim') {
+        const grad = ctx.createLinearGradient(0, height * 0.5, 0, height);
+        grad.addColorStop(0, 'rgba(0,0,0,0)');
+        grad.addColorStop(1, 'rgba(0,0,0,0.88)');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, width, height);
+      } else {
+        const grad = ctx.createLinearGradient(0, 0, 0, height);
+        grad.addColorStop(0, '#0F172A');
+        grad.addColorStop(1, '#020617');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, width, height);
+      }
+
+      // 2. Draw Typography Text
+      const scale = width / 1280;
+      const fontName = fontFamily === 'pretendard' ? 'Pretendard, sans-serif' : fontFamily === 'noto-sans-kr' ? 'Noto Sans KR, sans-serif' : 'sans-serif';
+      const weight = textWeight === 'black' ? '900' : textWeight === 'bold' ? '700' : '500';
+
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+
+      let textColor = '#0F172A';
+      if (activeBg.textTone === 'light') textColor = '#FFFFFF';
+      if (activeBg.textTone === 'chroma') textColor = activeBg.id === 'bg-chroma-green' ? '#000000' : '#FFFFFF';
+
+      ctx.fillStyle = textColor;
+
+      if (t < titleDuration) {
+        // Phase 1: Title
+        ctx.font = `${weight} ${Math.floor(wordFontSize * 1.3 * scale)}px ${fontName}`;
+        ctx.fillText(titleText, width / 2, height / 2);
+      } else if (t < titleDuration + wordsTotalDuration + holdDuration) {
+        // Phase 2 & Hold: Words
+        const elapsed = t - titleDuration;
+        const currentIdx = Math.min(words.length - 1, Math.floor(elapsed / wordDuration));
+        const inHold = t >= titleDuration + wordsTotalDuration;
+
+        if (breakdownMode === 'single' && !inHold) {
+          // Single word flash
+          ctx.font = `${weight} ${Math.floor(wordFontSize * 1.2 * scale)}px ${fontName}`;
+          const currentWord = words[currentIdx] || '';
+          const wordStart = titleDuration + currentIdx * wordDuration;
+          const charProgress = Math.max(0, Math.min(1, (t - wordStart) / wordDuration));
+          const visibleChars = Array.from(currentWord).slice(0, Math.max(1, Math.floor(charProgress * Array.from(currentWord).length))).join('');
+
+          ctx.fillText(visibleChars, width / 2, height / 2);
+
+          // Cursor
+          const textMetric = ctx.measureText(visibleChars);
+          ctx.fillStyle = cursorColor;
+          ctx.fillRect(width / 2 + textMetric.width / 2 + 6 * scale, height / 2 - (wordFontSize * scale) / 2, 4 * scale, wordFontSize * scale);
+        } else {
+          // Cumulative build-up or Single Hold
+          const lines = phraseText.split('\n');
+          ctx.font = `${weight} ${Math.floor(wordFontSize * 0.8 * scale)}px ${fontName}`;
+          const lineHeight = wordFontSize * 1.3 * scale;
+          const startY = height / 2 - ((lines.length - 1) * lineHeight) / 2;
+
+          let wordCounter = 0;
+          lines.forEach((line, lineIdx) => {
+            const lineWords = line.split(/\s+/).filter(w => w.length > 0);
+            let displayLine = '';
+            lineWords.forEach((w) => {
+              if (inHold || wordCounter <= currentIdx) {
+                displayLine += (displayLine ? ' ' : '') + w;
+              }
+              wordCounter++;
+            });
+            ctx.fillStyle = textColor;
+            ctx.fillText(displayLine, width / 2, startY + lineIdx * lineHeight);
+          });
         }
-        return next;
-      });
-    }, 100);
+      } else {
+        // Phase 3: Outro
+        ctx.font = `${weight} ${Math.floor(finalFontSize * 1.5 * scale)}px ${fontName}`;
+        ctx.fillText(outroText, width / 2, height / 2);
+      }
+
+      frame++;
+      setTimeout(renderLoop, 1000 / fps);
+    };
+
+    renderLoop();
   };
 
   const handleCopyFramerMotionCode = () => {
@@ -630,6 +1022,211 @@ const kineticMotionPreset = {
     const ms = Math.floor((timeInSecs % 1) * 100);
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}.${ms.toString().padStart(2, '0')}`;
   };
+
+  // URL parameters & Global automation hooks for headless Playwright render
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const paramTitle = params.get('title');
+      const paramPhrase = params.get('phrase');
+      const paramOutro = params.get('outro');
+      const paramBg = params.get('bg');
+      const paramRatio = params.get('aspect');
+
+      if (paramTitle) {
+        setTitleText(paramTitle);
+        setInputTitle(paramTitle);
+      }
+      if (paramPhrase) {
+        setPhraseText(paramPhrase);
+        setInputPhrase(paramPhrase);
+      }
+      if (paramOutro) {
+        setOutroText(paramOutro);
+        setInputOutro(paramOutro);
+      }
+      if (paramBg && BACKGROUND_PRESETS.some(b => b.id === paramBg)) {
+        setSelectedBgId(paramBg);
+      }
+      if (paramRatio === '9-16' || paramRatio === '1-1' || paramRatio === '16-9') {
+        setAspectRatio(paramRatio);
+      }
+
+      // Expose automation hook for Playwright headless rendering
+      (window as any).__KINETIC_SET_SCRIPT__ = (script: { title?: string; phrase?: string; outro?: string; bg?: string; aspect?: any }) => {
+        if (script.title) { setTitleText(script.title); setInputTitle(script.title); }
+        if (script.phrase) { setPhraseText(script.phrase); setInputPhrase(script.phrase); }
+        if (script.outro) { setOutroText(script.outro); setInputOutro(script.outro); }
+        if (script.bg) { setSelectedBgId(script.bg); }
+        if (script.aspect) { setAspectRatio(script.aspect); }
+        handleReset();
+      };
+      (window as any).__KINETIC_GET_DURATION__ = () => totalDuration;
+    }
+  }, [handleReset, totalDuration]);
+
+  // Clean Fullscreen Render Mode for Headless Playwright / Production Record
+  if (isRenderMode) {
+    return (
+      <div className="w-screen h-screen m-0 p-0 overflow-hidden flex items-center justify-center bg-transparent select-none">
+        <div
+          ref={videoViewportRef}
+          style={
+            activeBg.isTransparent
+              ? {}
+              : activeBg.customStyle || {}
+          }
+          className={`relative overflow-hidden w-full h-full flex items-center justify-center ${
+            activeBg.isTransparent ? '' : activeBg.bgClass || ''
+          }`}
+        >
+          {/* Animation Center Stage */}
+          <div className="absolute inset-0 flex items-center justify-center px-16 text-center select-none overflow-hidden">
+            <AnimatePresence mode="wait">
+              {/* Phase 1: Intro Title */}
+              {activePhase === 'title' && (
+                <motion.h2
+                  key="title-slide"
+                  initial={motionVariants.initial}
+                  animate={motionVariants.animate}
+                  exit={motionVariants.exit}
+                  transition={motionVariants.transition}
+                  className={`text-5xl md:text-7xl tracking-tight leading-snug ${getFontFamilyStyle()} ${getFontWeightStyle()} ${effectiveTitleClass}`}
+                >
+                  {titleText}
+                </motion.h2>
+              )}
+
+              {/* Phase 2 & Hold: Kinetic Words and 1.5s Hold View */}
+              {(activePhase === 'words' || activePhase === 'hold') && (
+                <>
+                  {breakdownMode === 'single' ? (
+                    activePhase === 'hold' ? (
+                      <motion.div
+                        key="hold-full-phrase"
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.95 }}
+                        transition={{ duration: 0.3 }}
+                        style={{ fontSize: `${Math.min(wordFontSize * 1.2, 48)}px` }}
+                        className={`leading-relaxed tracking-tight whitespace-pre-wrap font-medium ${getFontFamilyStyle()} ${getFontWeightStyle()} ${effectiveTextClass} max-w-[92%]`}
+                      >
+                        {phraseText}
+                      </motion.div>
+                    ) : (
+                      activeWordIndex >= 0 && activeWordIndex < words.length && (
+                        <motion.div
+                          key={`single-word-${activeWordIndex}`}
+                          initial={activeEffect === 'typing' ? { opacity: 1 } : motionVariants.initial}
+                          animate={activeEffect === 'typing' ? { opacity: 1 } : motionVariants.animate}
+                          exit={activeEffect === 'typing' ? { opacity: 0 } : motionVariants.exit}
+                          transition={motionVariants.transition}
+                          style={{ fontSize: `${wordFontSize * 1.3}px` }}
+                          className={`leading-tight tracking-tight ${getFontFamilyStyle()} ${getFontWeightStyle()} ${effectiveTextClass} max-w-[92%]`}
+                        >
+                          {activeEffect === 'typing' ? (
+                            <span>
+                              {Array.from(words[activeWordIndex])
+                                .slice(0, Math.max(1, Math.floor(activeWordProgress * Array.from(words[activeWordIndex]).length)))
+                                .join('')}
+                              <span
+                                style={{ color: cursorColor }}
+                                className="inline-block ml-2 animate-pulse font-mono font-bold"
+                              >
+                                |
+                              </span>
+                            </span>
+                          ) : (
+                            words[activeWordIndex]
+                          )}
+                        </motion.div>
+                      )
+                    )
+                  ) : (
+                    <motion.div
+                      key="cumulative-words-container"
+                      initial={{ opacity: 0, y: 15 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -15 }}
+                      transition={{ duration: 0.4 }}
+                      className={`flex flex-col items-center justify-center gap-3 max-w-[95%] whitespace-pre-wrap leading-relaxed ${getFontFamilyStyle()} ${getFontWeightStyle()} ${effectiveTextClass}`}
+                      style={{ fontSize: `${Math.min(wordFontSize * 1.1, 54)}px` }}
+                    >
+                      {structuredLines.map((lineObj) => {
+                        const lineVisibleWords = lineObj.words.filter(w => w.index <= activeWordIndex);
+                        if (lineVisibleWords.length === 0) return null;
+
+                        return (
+                          <div key={lineObj.lineIndex} className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
+                            {lineVisibleWords.map((wObj) => {
+                              const isCurrentTypingWord = wObj.index === activeWordIndex && activePhase === 'words';
+                              const charArray = Array.from(wObj.text);
+
+                              return (
+                                <motion.span
+                                  key={`word-cumul-${wObj.index}`}
+                                  initial={{ opacity: 0, scale: 0.9 }}
+                                  animate={{ opacity: 1, scale: 1 }}
+                                  className="inline-flex items-center"
+                                >
+                                  {isCurrentTypingWord && activeEffect === 'typing' ? (
+                                    <span>
+                                      {charArray.slice(0, Math.max(1, Math.floor(activeWordProgress * charArray.length))).join('')}
+                                      <span
+                                        style={{ color: cursorColor }}
+                                        className="inline-block ml-1 animate-pulse font-mono font-bold"
+                                      >
+                                        |
+                                      </span>
+                                    </span>
+                                  ) : (
+                                    wObj.text
+                                  )}
+                                </motion.span>
+                              );
+                            })}
+                          </div>
+                        );
+                      })}
+                    </motion.div>
+                  )}
+                </>
+              )}
+
+              {/* Phase 3: Final Outro Full Phrase */}
+              {activePhase === 'final' && (
+                <motion.div
+                  key="final-layout"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.7 }}
+                  className="flex flex-col items-center justify-center gap-6 max-w-[90%]"
+                >
+                  <div className="flex flex-col items-center gap-2">
+                    <span className="text-sm uppercase tracking-[0.25em] font-bold text-emerald-500 opacity-90">
+                      {outroText}
+                    </span>
+                    <h3 className={`text-3xl md:text-4xl ${getFontFamilyStyle()} font-extrabold ${effectiveTitleClass}`}>
+                      {titleText}
+                    </h3>
+                    <div className="h-[3px] w-12 rounded-full my-1" style={{ backgroundColor: cursorColor }} />
+                  </div>
+
+                  <p
+                    style={{ fontSize: `${finalFontSize * 1.3}px`, lineHeight: 1.6 }}
+                    className={`${getFontFamilyStyle()} font-medium ${effectiveTextClass} max-w-2xl text-center whitespace-pre-wrap`}
+                  >
+                    {phraseText}
+                  </p>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col min-h-screen bg-[var(--surface-canvas)] p-4 md:p-6 lg:p-8">
@@ -702,24 +1299,37 @@ const kineticMotionPreset = {
             <div className="p-6 bg-slate-950/10 flex items-center justify-center min-h-[460px] max-h-[580px] overflow-hidden">
               <div
                 ref={videoViewportRef}
-                className={`relative overflow-hidden transition-all duration-300 ${activeStyle.bgClass} ${
-                  activeStyle.cardStyle
+                style={
+                  activeBg.isTransparent
+                    ? {
+                        backgroundImage:
+                          'conic-gradient(#cbd5e1 90deg, #f1f5f9 90deg 180deg, #cbd5e1 180deg 270deg, #f1f5f9 270deg)',
+                        backgroundSize: '20px 20px'
+                      }
+                    : activeBg.customStyle || {}
+                }
+                className={`relative overflow-hidden transition-all duration-300 ${
+                  activeBg.isTransparent
+                    ? 'border-2 border-dashed border-slate-300 dark:border-slate-700 shadow-inner'
+                    : activeBg.bgClass || ''
                 } ${
                   aspectRatio === '16-9'
                     ? 'w-full aspect-video max-w-[820px]'
                     : aspectRatio === '9-16'
                     ? 'h-[460px] aspect-[9/16]'
                     : 'w-[450px] aspect-square'
-                }`}
+                } rounded-2xl shadow-xl`}
               >
-                {/* Subtle Ambient Grid Background */}
-                <div
-                  className="absolute inset-0 pointer-events-none opacity-[0.04]"
-                  style={{
-                    backgroundImage: 'radial-gradient(circle, #000 1.5px, transparent 1.5px)',
-                    backgroundSize: '24px 24px'
-                  }}
-                />
+                {/* Subtle Ambient Grid Background (hidden on transparent/chroma) */}
+                {!activeBg.isTransparent && activeBg.textTone !== 'chroma' && (
+                  <div
+                    className="absolute inset-0 pointer-events-none opacity-[0.04]"
+                    style={{
+                      backgroundImage: 'radial-gradient(circle, #000 1.5px, transparent 1.5px)',
+                      backgroundSize: '24px 24px'
+                    }}
+                  />
+                )}
 
                 {/* Title & Action Safe Areas Overlay */}
                 {showSafeAreas && (
@@ -760,7 +1370,7 @@ const kineticMotionPreset = {
                         animate={motionVariants.animate}
                         exit={motionVariants.exit}
                         transition={motionVariants.transition}
-                        className={`text-4xl md:text-6xl tracking-tight leading-snug ${getFontFamilyStyle()} ${getFontWeightStyle()} ${activeStyle.titleClass} ${activeStyle.glowEffect || ''}`}
+                        className={`text-4xl md:text-6xl tracking-tight leading-snug ${getFontFamilyStyle()} ${getFontWeightStyle()} ${effectiveTitleClass} ${activeStyle.glowEffect || ''}`}
                       >
                         {titleText}
                       </motion.h2>
@@ -780,7 +1390,7 @@ const kineticMotionPreset = {
                               exit={{ opacity: 0, scale: 0.95 }}
                               transition={{ duration: 0.3 }}
                               style={{ fontSize: `${Math.min(wordFontSize, 36)}px` }}
-                              className={`leading-relaxed tracking-tight whitespace-pre-wrap font-medium ${getFontFamilyStyle()} ${getFontWeightStyle()} ${activeStyle.textClass} max-w-[92%]`}
+                              className={`leading-relaxed tracking-tight whitespace-pre-wrap font-medium ${getFontFamilyStyle()} ${getFontWeightStyle()} ${effectiveTextClass} max-w-[92%]`}
                             >
                               {phraseText}
                             </motion.div>
@@ -794,7 +1404,7 @@ const kineticMotionPreset = {
                                 exit={activeEffect === 'typing' ? { opacity: 0 } : motionVariants.exit}
                                 transition={motionVariants.transition}
                                 style={{ fontSize: `${wordFontSize}px` }}
-                                className={`leading-tight tracking-tight ${getFontFamilyStyle()} ${getFontWeightStyle()} ${activeStyle.textClass} ${activeStyle.glowEffect || ''} max-w-[92%]`}
+                                className={`leading-tight tracking-tight ${getFontFamilyStyle()} ${getFontWeightStyle()} ${effectiveTextClass} ${activeStyle.glowEffect || ''} max-w-[92%]`}
                               >
                                 {activeEffect === 'typing' ? (
                                   <span>
@@ -822,7 +1432,7 @@ const kineticMotionPreset = {
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -15, filter: 'blur(4px)' }}
                             transition={{ duration: 0.4 }}
-                            className={`flex flex-col items-center justify-center gap-2 max-w-[95%] whitespace-pre-wrap leading-relaxed ${getFontFamilyStyle()} ${getFontWeightStyle()} ${activeStyle.textClass}`}
+                            className={`flex flex-col items-center justify-center gap-2 max-w-[95%] whitespace-pre-wrap leading-relaxed ${getFontFamilyStyle()} ${getFontWeightStyle()} ${effectiveTextClass}`}
                             style={{ fontSize: `${Math.min(wordFontSize, 42)}px` }}
                           >
                             {structuredLines.map((lineObj) => {
@@ -880,7 +1490,7 @@ const kineticMotionPreset = {
                           <span className="text-xs uppercase tracking-[0.25em] font-bold text-emerald-500 opacity-90">
                             {outroText}
                           </span>
-                          <h3 className={`text-2xl md:text-3xl ${getFontFamilyStyle()} font-extrabold ${activeStyle.titleClass}`}>
+                          <h3 className={`text-2xl md:text-3xl ${getFontFamilyStyle()} font-extrabold ${effectiveTitleClass}`}>
                             {titleText}
                           </h3>
                           <div className="h-[3px] w-10 rounded-full my-1" style={{ backgroundColor: cursorColor }} />
@@ -888,7 +1498,7 @@ const kineticMotionPreset = {
 
                         <p
                           style={{ fontSize: `${finalFontSize}px`, lineHeight: 1.6 }}
-                          className={`${getFontFamilyStyle()} font-medium ${activeStyle.textClass} max-w-xl text-center whitespace-pre-wrap`}
+                          className={`${getFontFamilyStyle()} font-medium ${effectiveTextClass} max-w-xl text-center whitespace-pre-wrap`}
                         >
                           {phraseText}
                         </p>
@@ -1183,6 +1793,78 @@ const kineticMotionPreset = {
                       <span className="text-[10px] font-mono text-[var(--text-secondary)]">{swatch.label.split(' ')[0]}</span>
                     </button>
                   ))}
+                </div>
+              </div>
+
+              {/* Requirement: Background Canvas Selection (Transparent, Off-White, Broadcast, Core) */}
+              <div className="flex flex-col gap-3 border-b border-[var(--stroke-subtle)] pb-4">
+                <div className="flex items-center justify-between">
+                  <label className="text-xs font-bold text-[var(--text-primary)] flex items-center gap-1.5">
+                    <GridFour size={16} className="text-emerald-500" />
+                    Canvas Background (배경화면 선택)
+                  </label>
+                  <span className="text-[10px] font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">
+                    {activeBg.name}
+                  </span>
+                </div>
+                <p className="text-[11px] text-[var(--text-muted)] leading-relaxed">
+                  투명 배경(알파 채널), 눈이 편안한 3종 오프화이트, 방송 제작용 크로마키(그린/블루) 및 숏폼 슈퍼블랙을 선택할 수 있습니다.
+                </p>
+
+                {/* Background Cards Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                  {BACKGROUND_PRESETS.map((bg) => {
+                    const isSelected = selectedBgId === bg.id;
+                    return (
+                      <button
+                        key={bg.id}
+                        onClick={() => {
+                          setSelectedBgId(bg.id);
+                          handleReset();
+                        }}
+                        className={`flex items-start gap-3 p-3 rounded-xl border text-left transition-all ${
+                          isSelected
+                            ? 'border-emerald-500 ring-2 ring-emerald-500/20 bg-emerald-50/30 dark:bg-emerald-950/30'
+                            : 'border-[var(--stroke-subtle)] bg-[var(--surface-elevated)] hover:bg-[var(--surface-canvas)]'
+                        }`}
+                      >
+                        {/* Background Mini Swatch */}
+                        <div
+                          className="h-10 w-10 flex-shrink-0 rounded-lg border border-black/10 shadow-sm flex items-center justify-center overflow-hidden relative"
+                          style={
+                            bg.isTransparent
+                              ? {
+                                  backgroundImage:
+                                    'conic-gradient(#94a3b8 90deg, #f8fafc 90deg 180deg, #94a3b8 180deg 270deg, #f8fafc 270deg)',
+                                  backgroundSize: '10px 10px'
+                                }
+                              : bg.customStyle || { backgroundColor: bg.previewColor }
+                          }
+                        >
+                          {bg.isTransparent && (
+                            <span className="text-[8px] font-mono font-black text-slate-700 bg-white/80 px-1 rounded">
+                              ALPHA
+                            </span>
+                          )}
+                        </div>
+
+                        {/* Background Info */}
+                        <div className="flex flex-col flex-1 min-w-0">
+                          <div className="flex items-center justify-between gap-1">
+                            <span className="text-xs font-bold text-[var(--text-primary)] truncate">
+                              {bg.name}
+                            </span>
+                            <span className="text-[9px] font-medium px-1.5 py-0.5 rounded bg-[var(--surface-canvas)] text-[var(--text-secondary)] border border-[var(--stroke-subtle)] flex-shrink-0">
+                              {bg.categoryLabel}
+                            </span>
+                          </div>
+                          <p className="text-[10px] text-[var(--text-muted)] line-clamp-2 mt-0.5 leading-snug">
+                            {bg.description}
+                          </p>
+                        </div>
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
 

@@ -1,0 +1,14 @@
+{
+  "id": "broadcast-breaking-news",
+  "name": "방송용 크로마키 그린스크린 키네틱 자막",
+  "title": "속보 뉴스 브리핑",
+  "phrase": "인공지능 키네틱 타이포그래피 스튜디오 오픈,\n영상 제작자 누구나 무료 고화질 렌더링 지원.",
+  "outro": "KINETIC STUDIO ON AIR",
+  "fontFamily": "pretendard",
+  "cursorColor": "#000000",
+  "breakdownMode": "cumulative",
+  "activeEffect": "typing",
+  "holdDuration": 1.5,
+  "bg": "bg-chroma-green",
+  "aspect": "16-9"
+}

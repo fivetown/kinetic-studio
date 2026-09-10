@@ -4,6 +4,8 @@ __pycache__/
 .worktrees/
 .tmp/
 .DS_Store
+**/.DS_Store
+output_videos/
 
 # npm pack artifacts
 antigravity-awesome-skills-*.tgz

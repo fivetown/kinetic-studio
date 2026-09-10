@@ -8,5 +8,7 @@
   "cursorColor": "#FF5A1F",
   "breakdownMode": "cumulative",
   "activeEffect": "typing",
-  "holdDuration": 1.5
+  "holdDuration": 1.5,
+  "bg": "bg-offwhite-clean",
+  "aspect": "16-9"
 }
