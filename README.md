@@ -736,6 +736,13 @@ We officially thank the following contributors for their help in making this rep
 - [@zenlee123](https://github.com/zenlee123)
 - [@zillapi](https://github.com/zillapi)
 - [@zyu51847-maker](https://github.com/zyu51847-maker)
+- [@70v-Yoyo](https://github.com/70v-Yoyo)
+- [@adriansurething](https://github.com/adriansurething)
+- [@mosinlshaikh](https://github.com/mosinlshaikh)
+- [@onkarbadve](https://github.com/onkarbadve)
+- [@Pranav-Nexus](https://github.com/Pranav-Nexus)
+- [@siddanta-ar1](https://github.com/siddanta-ar1)
+- [@twoicewoo](https://github.com/twoicewoo)
 
 ## Star History
 
